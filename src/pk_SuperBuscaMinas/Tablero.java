@@ -10,6 +10,8 @@ import javax.sound.sampled.Clip;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import pk_SuperBuscaMinas.BotonMina.Estado;
+
 
 public class Tablero {
 	
@@ -285,115 +287,55 @@ public class Tablero {
 		
 		// Celda Superior izq
 		if ((fil>0 && col>0) && matrizBotones[fil-1][col-1].getEstado().equals(BotonMina.Estado.BOTON)) {
-			// Si es valor NUMERO cambia aspecto a NUMERO
-			if (matrizBotones[fil-1][col-1].getValor().equals(BotonMina.Valor.NUMERO)) {
-				matrizBotones[fil-1][col-1].cambiarAspecto(BotonMina.Estado.NUMERO);
-				botonesNoMinaSinPulsar--;
-			}
-			// Si es valor VACIO cambia aspecto a PULSADO
-			if (matrizBotones[fil-1][col-1].getValor().equals(BotonMina.Valor.VACIO)) {
-				matrizBotones[fil-1][col-1].cambiarAspecto(BotonMina.Estado.PULSADO);
-				recursivoDestapaCeldasAdyacentes(fil-1, col-1);
-			}
+			destapaBoton(fil-1, col-1);
 		}
-		
 		// Celda Superior
 		if ((fil>0)	&& matrizBotones[fil-1][col].getEstado().equals(BotonMina.Estado.BOTON)) {
-			// Si es valor NUMERO cambia aspecto a NUMERO
-			if (matrizBotones[fil-1][col].getValor().equals(BotonMina.Valor.NUMERO)) {
-				matrizBotones[fil-1][col].cambiarAspecto(BotonMina.Estado.NUMERO);
-				botonesNoMinaSinPulsar--;
-			}
-			// Si es valor VACIO cambia aspecto a PULSADO
-			if (matrizBotones[fil-1][col].getValor().equals(BotonMina.Valor.VACIO)) {
-				matrizBotones[fil-1][col].cambiarAspecto(BotonMina.Estado.PULSADO);
-				recursivoDestapaCeldasAdyacentes(fil-1, col);
-			}
-		}		
-		
+			destapaBoton(fil-1, col);
+		}
 		// Celda Superior der
 		if ((fil>0 && col<matrizBotones.length-1) && matrizBotones[fil-1][col+1].getEstado().equals(BotonMina.Estado.BOTON)) {
-			// Si es valor NUMERO cambia aspecto a NUMERO
-			if (matrizBotones[fil-1][col+1].getValor().equals(BotonMina.Valor.NUMERO)) {
-				matrizBotones[fil-1][col+1].cambiarAspecto(BotonMina.Estado.NUMERO);
-				botonesNoMinaSinPulsar--;
-			}
-			// Si es valor VACIO cambia aspecto a PULSADO
-			if (matrizBotones[fil-1][col+1].getValor().equals(BotonMina.Valor.VACIO)) {
-				matrizBotones[fil-1][col+1].cambiarAspecto(BotonMina.Estado.PULSADO);
-				recursivoDestapaCeldasAdyacentes(fil-1, col+1);
-			}
+			destapaBoton(fil-1, col+1);
 		}	
-		
 		// Celda Izq
 		if ((col>0)	&& matrizBotones[fil][col-1].getEstado().equals(BotonMina.Estado.BOTON)) {
-			// Si es valor NUMERO cambia aspecto a NUMERO
-			if (matrizBotones[fil][col-1].getValor().equals(BotonMina.Valor.NUMERO)) {
-				matrizBotones[fil][col-1].cambiarAspecto(BotonMina.Estado.NUMERO);
-				botonesNoMinaSinPulsar--;
-			}
-			// Si es valor VACIO cambia aspecto a PULSADO
-			if (matrizBotones[fil][col-1].getValor().equals(BotonMina.Valor.VACIO)) {
-				matrizBotones[fil][col-1].cambiarAspecto(BotonMina.Estado.PULSADO);
-				recursivoDestapaCeldasAdyacentes(fil, col-1);
-			}
+			destapaBoton(fil, col-1);
 		}
-		
 		// Celda Der
 		if ((col<matrizBotones.length-1) && matrizBotones[fil][col+1].getEstado().equals(BotonMina.Estado.BOTON)) {
-			// Si es valor NUMERO cambia aspecto a NUMERO
-			if (matrizBotones[fil][col+1].getValor().equals(BotonMina.Valor.NUMERO)) {
-				matrizBotones[fil][col+1].cambiarAspecto(BotonMina.Estado.NUMERO);
-				botonesNoMinaSinPulsar--;
-			}
-			// Si es valor VACIO cambia aspecto a PULSADO
-			if (matrizBotones[fil][col+1].getValor().equals(BotonMina.Valor.VACIO)) {
-				matrizBotones[fil][col+1].cambiarAspecto(BotonMina.Estado.PULSADO);
-				recursivoDestapaCeldasAdyacentes(fil, col+1);
-			}
-		}	
-		
+			destapaBoton(fil, col+1);
+		}
 		// Celda Inferior der
 		if ((fil<matrizBotones.length-1 && col<matrizBotones.length-1) && matrizBotones[fil+1][col+1].getEstado().equals(BotonMina.Estado.BOTON)) {
-			// Si es valor NUMERO cambia aspecto a NUMERO
-			if (matrizBotones[fil+1][col+1].getValor().equals(BotonMina.Valor.NUMERO)) {
-				matrizBotones[fil+1][col+1].cambiarAspecto(BotonMina.Estado.NUMERO);
-				botonesNoMinaSinPulsar--;
-			}
-			// Si es valor VACIO cambia aspecto a PULSADO
-			if (matrizBotones[fil+1][col+1].getValor().equals(BotonMina.Valor.VACIO)) {
-				matrizBotones[fil+1][col+1].cambiarAspecto(BotonMina.Estado.PULSADO);
-				recursivoDestapaCeldasAdyacentes(fil+1, col+1);
-			}
-		}	
-		
+			destapaBoton(fil+1, col+1);
+		}
 		// Celda Inferior
 		if ((fil<matrizBotones.length-1) && matrizBotones[fil+1][col].getEstado().equals(BotonMina.Estado.BOTON)) {
-			// Si es valor NUMERO cambia aspecto a NUMERO
-			if (matrizBotones[fil+1][col].getValor().equals(BotonMina.Valor.NUMERO)) {
-				matrizBotones[fil+1][col].cambiarAspecto(BotonMina.Estado.NUMERO);
-				botonesNoMinaSinPulsar--;
-			}
-			// Si es valor VACIO cambia aspecto a PULSADO
-			if (matrizBotones[fil+1][col].getValor().equals(BotonMina.Valor.VACIO)) {
-				matrizBotones[fil+1][col].cambiarAspecto(BotonMina.Estado.PULSADO);
-				recursivoDestapaCeldasAdyacentes(fil+1, col);
-			}
+			destapaBoton(fil+1, col);
 		}	
 		
 		// Celda Inferior izq
 		if ((fil<matrizBotones.length-1 && col>0) && matrizBotones[fil+1][col-1].getEstado().equals(BotonMina.Estado.BOTON)) {
 			// Si es valor NUMERO cambia aspecto a NUMERO
-			if (matrizBotones[fil+1][col-1].getValor().equals(BotonMina.Valor.NUMERO)) {
-				matrizBotones[fil+1][col-1].cambiarAspecto(BotonMina.Estado.NUMERO);
-				botonesNoMinaSinPulsar--;
+				destapaBoton(fil+1, col);
 			}
-			// Si es valor VACIO cambia aspecto a PULSADO
-			if (matrizBotones[fil+1][col-1].getValor().equals(BotonMina.Valor.VACIO)) {
-				matrizBotones[fil+1][col-1].cambiarAspecto(BotonMina.Estado.PULSADO);
-				recursivoDestapaCeldasAdyacentes(fil+1, col-1);
+			
+		
+	}
+	
+	private void destapaBoton(int fil, int col) {
+		if (matrizBotones[fil][col].getValor().equals(BotonMina.Valor.NUMERO)) {
+			matrizBotones[fil][col].cambiarAspecto(BotonMina.Estado.NUMERO);
+			botonesNoMinaSinPulsar--;
+		}
+		else {
+			if(matrizBotones[fil][col].getValor().equals(BotonMina.Valor.VACIO)){
+				matrizBotones[fil][col].cambiarAspecto(BotonMina.Estado.PULSADO);
+				recursivoDestapaCeldasAdyacentes(fil, col);
 			}
 		}
+		
+		
 	}
 
 	
