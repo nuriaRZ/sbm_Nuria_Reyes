@@ -5,6 +5,7 @@ import javax.swing.JFrame;
 
 public class SuperBuscaMinas {
 
+
 	private JFrame frmBuscaMinas;
 
 	
