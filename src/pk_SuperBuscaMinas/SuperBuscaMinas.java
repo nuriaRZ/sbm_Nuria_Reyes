@@ -6,8 +6,6 @@ import javax.swing.JFrame;
 public class SuperBuscaMinas {
 
 
-	private static final int WINDOW_HORIZONTAL_SIZE = 500;
-	private static final int WINDOW_VERTICAL_SIZE = 500;
 	private JFrame frmBuscaMinas;
 
 	
@@ -40,7 +38,7 @@ public class SuperBuscaMinas {
 	private void initialize() {
 		frmBuscaMinas = new JFrame();
 		frmBuscaMinas.setTitle("Busca Minas");
-		frmBuscaMinas.setBounds(0, 0, WINDOW_HORIZONTAL_SIZE, WINDOW_VERTICAL_SIZE);
+		frmBuscaMinas.setBounds(0, 0, Tablero.WINDOW_HORIZONTAL_SIZE, Tablero.WINDOW_VERTICAL_SIZE);
 		frmBuscaMinas.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		frmBuscaMinas.getContentPane().setLayout(null);	
