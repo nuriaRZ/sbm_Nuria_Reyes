@@ -179,6 +179,12 @@ public class Tablero {
 		
 		// ----------------- CREACION DE MINAS -----------------
 		// Genero aleatoriamente numMinas minas
+		plantaMinas(NUM_MINAS);		
+		// ----------------- CREACION DE MINAS -----------------
+	}
+
+
+	private void plantaMinas(int NUM_MINAS) {
 		int contador_minas = NUM_MINAS;
 		int filaMina;
 		int columnaMina;
@@ -214,8 +220,7 @@ public class Tablero {
 					botonesNoMinaSinPulsar++;
 				}
 			}
-		}		
-		// ----------------- CREACION DE MINAS -----------------
+		}
 	}		
 	
 	
