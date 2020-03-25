@@ -32,6 +32,75 @@ public class Tablero {
 	static final int WINDOW_HORIZONTAL_SIZE = 500;
 	
 	
+	private final class CeldaListener implements MouseListener {
+		private final BotonMina celda;
+
+		private CeldaListener(BotonMina celda) {
+			this.celda = celda;
+		}
+
+		@Override
+		public void mouseReleased(MouseEvent e) {
+			// Empieza el tiempo cuando haga click por primera vez
+			if (!panelTiempo.isContadorIniciado()) {
+				panelTiempo.contar();
+			}
+			
+			// Boton Izquierdo
+			if (e.getButton() == MouseEvent.BUTTON1) {				
+				// Si es BOTON 
+				if (celda.getEstado().equals(BotonMina.Estado.BOTON)) {
+					// Si debajo hay una mina acaba
+					if (celda.getValor().equals(BotonMina.Valor.MINA)) {
+						celda.cambiarAspecto(BotonMina.Estado.MINA);
+						minaPulsada = true;
+						isJuegoFinalizado();
+					}									
+					// Si debajo no hay nada, limpio de forma recursiva
+					else if (celda.getValor().equals(BotonMina.Valor.VACIO)) {
+						celda.cambiarAspecto(BotonMina.Estado.PULSADO);
+
+						recursivoDestapaCeldasAdyacentes(celda.getFil(), celda.getCol());
+						isJuegoFinalizado();	
+					}
+					// Si hay número (indicando las minas adyacentes), lo muestro
+					else if (celda.getValor().equals(BotonMina.Valor.NUMERO)) {
+						celda.cambiarAspecto(BotonMina.Estado.NUMERO);
+						botonesNoMinaSinPulsar--;
+						isJuegoFinalizado();
+					}									
+				}
+			}
+			
+			// Boton Derecho
+			if (e.getButton() == MouseEvent.BUTTON3) {
+				// Si es bandera quito bandera (dejo botón)
+				if (celda.getEstado().equals(BotonMina.Estado.BANDERA) ) {
+					celda.cambiarAspecto(BotonMina.Estado.BOTON);
+					panelContadorMinas.incrementaNumMinas();
+				}
+				// Si es botón, pongo bandera
+				else if(celda.getEstado().equals(BotonMina.Estado.BOTON) && panelContadorMinas.getNumMinas() > 0){
+					celda.cambiarAspecto(BotonMina.Estado.BANDERA);
+					panelContadorMinas.decrementaNumMinas();
+				}
+			}						
+		}
+
+		@Override
+		public void mousePressed(MouseEvent e) {}
+
+		@Override
+		public void mouseExited(MouseEvent e) {}
+
+		@Override
+		public void mouseEntered(MouseEvent e) {}
+
+		@Override
+		public void mouseClicked(MouseEvent e) {}
+	}
+
+
 	// Clase interna para almacenar pares de coordenadas
 	private class Coordenadas {
 		private int fila;
@@ -121,63 +190,7 @@ public class Tablero {
 				BotonMina celda = matrizBotones[fil][col];
 				
 				// Añado el listener de ratón
-				celda.addMouseListener(new MouseListener() {
-					@Override
-					public void mouseReleased(MouseEvent e) {
-						// Empieza el tiempo cuando haga click por primera vez
-						if (!panelTiempo.isContadorIniciado()) {
-							panelTiempo.contar();
-						}
-						
-						// Boton Izquierdo
-						if (e.getButton() == MouseEvent.BUTTON1) {				
-							// Si es BOTON 
-							if (celda.getEstado().equals(BotonMina.Estado.BOTON)) {
-								// Si debajo hay una mina acaba
-								if (celda.getValor().equals(BotonMina.Valor.MINA)) {
-									celda.cambiarAspecto(BotonMina.Estado.MINA);
-									minaPulsada = true;
-									isJuegoFinalizado();
-								}									
-								// Si debajo no hay nada, limpio de forma recursiva
-								else if (celda.getValor().equals(BotonMina.Valor.VACIO)) {
-									celda.cambiarAspecto(BotonMina.Estado.PULSADO);
-
-									recursivoDestapaCeldasAdyacentes(celda.getFil(), celda.getCol());
-									isJuegoFinalizado();	
-								}
-								// Si hay número (indicando las minas adyacentes), lo muestro
-								else if (celda.getValor().equals(BotonMina.Valor.NUMERO)) {
-									celda.cambiarAspecto(BotonMina.Estado.NUMERO);
-									botonesNoMinaSinPulsar--;
-									isJuegoFinalizado();
-								}									
-							}
-						}
-						
-						// Boton Derecho
-						if (e.getButton() == MouseEvent.BUTTON3) {
-							// Si es bandera quito bandera (dejo botón)
-							if (celda.getEstado().equals(BotonMina.Estado.BANDERA) ) {
-								celda.cambiarAspecto(BotonMina.Estado.BOTON);
-								panelContadorMinas.incrementaNumMinas();
-							}
-							// Si es botón, pongo bandera
-							else if(celda.getEstado().equals(BotonMina.Estado.BOTON) && panelContadorMinas.getNumMinas() > 0){
-								celda.cambiarAspecto(BotonMina.Estado.BANDERA);
-								panelContadorMinas.decrementaNumMinas();
-							}
-						}						
-					}
-					@Override
-					public void mousePressed(MouseEvent e) {}
-					@Override
-					public void mouseExited(MouseEvent e) {}
-					@Override
-					public void mouseEntered(MouseEvent e) {}
-					@Override
-					public void mouseClicked(MouseEvent e) {}
-				});				
+				celda.addMouseListener(new CeldaListener(celda));				
 			}
 		}
 		
