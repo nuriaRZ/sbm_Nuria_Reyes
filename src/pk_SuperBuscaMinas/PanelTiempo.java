@@ -25,7 +25,9 @@ public class PanelTiempo extends JPanel {
             lblContadorSegundos.setText(Integer.toString(segundos));
         }
     }
-    
+    /**
+     * Metodo panel donde aparece el tiempo
+     */
     public PanelTiempo() {
     	lblTiempo.setIcon(new ImageIcon("res/cronometro_38.png"));
     	lblContadorSegundos.setFont(new Font(lblContadorSegundos.getFont().getName(), Font.BOLD, 18));
@@ -56,11 +58,17 @@ public class PanelTiempo extends JPanel {
     {
         return this.segundos;
     }
-    
+    /**
+     * 
+     * @return
+     */
 	public boolean isContadorIniciado() {
 		return contadorIniciado;
 	}
-
+	/**
+	 * 
+	 * @param contadorIniciado
+	 */
 	public void setContadorIniciado(boolean contadorIniciado) {
 		this.contadorIniciado = contadorIniciado;
 	}    

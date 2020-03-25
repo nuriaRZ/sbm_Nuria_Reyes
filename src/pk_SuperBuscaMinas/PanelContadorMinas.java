@@ -14,7 +14,10 @@ public class PanelContadorMinas extends JPanel {
     private JLabel lblContadorMinas;
     private int numMinas;
     
-    
+    /**
+     * 
+     * @param numMinas
+     */
     public PanelContadorMinas(int numMinas) {
     	this.numMinas = numMinas;
     	lblContadorMinas = new JLabel(Integer.toString(this.numMinas));
@@ -28,22 +31,32 @@ public class PanelContadorMinas extends JPanel {
     	this.add(lblContadorMinas);
     	this.add(lblMinas);
     }
-    
+    /**
+     * setNumMinas
+     * @param numMinas
+     */
     public void setNumMinas(int numMinas) {
     	this.numMinas = numMinas;
     }
-    
+    /**
+     * getNumMinas
+     * @return
+     */
     public int getNumMinas() {
     	return numMinas;
     }
-    
+    /**
+     * método decrementarNumMinas
+     */
     public void decrementaNumMinas() {
     	if (numMinas>0) {
         	numMinas--;
         	lblContadorMinas.setText(Integer.toString(numMinas));    		
     	}
     }
-
+    /**
+     * Método incrementar num minas
+     */
     public void incrementaNumMinas() {
     	numMinas++;
     	lblContadorMinas.setText(Integer.toString(numMinas));

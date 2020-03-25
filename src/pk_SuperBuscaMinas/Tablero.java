@@ -97,7 +97,7 @@ public class Tablero {
 		panelContadorMinas.setBounds(coordX + (CELDA_SIZE * MATRIZ_SIZE) - panelContadorMinas.getWidth(), coordY + 10, panelContadorMinas.getWidth(), panelContadorMinas.getHeight());
 		panelBuscaMinas.add(panelContadorMinas);
 		panelBuscaMinas.setBounds(40, 10, CELDA_SIZE * MATRIZ_SIZE + 20, CELDA_SIZE * MATRIZ_SIZE + 100);
-				
+		//imprimeMatrizBotones(matrizBotones);		
 		return panelBuscaMinas;
 	}
 	
@@ -440,7 +440,13 @@ public class Tablero {
 	 * Método que imprime una matriz por pantalla
 	 */
 	public void imprimeMatrizBotones(BotonMina[][] matrizBotones) {
-// TODO
+		for(int i = 0; i < matrizBotones.length; i++) {
+			for(int j = 0; j < matrizBotones.length; j++) {
+				System.out.println(matrizBotones[j][i].toString()+" ");
+			}
+			System.out.println("\n");
+		}
+
 
 	}		
 }
