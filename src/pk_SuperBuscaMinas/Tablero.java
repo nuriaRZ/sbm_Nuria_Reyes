@@ -230,20 +230,26 @@ public class Tablero {
 			ejecutar_sonido("res/Explosion.wav");
 			muestraMinas();
 			
-			panelTiempo.detener();
-			
-			JOptionPane.showMessageDialog(null, "La mina explotó!!", "Fin del juego", JOptionPane.DEFAULT_OPTION);
-			System.exit(0);
+			mensajeFinDeJuego("La mina explotó!!", "Fin del juego");
+		
 		}
 		else if (botonesNoMinaSinPulsar <= 0) {	// FIN DEL JUEGO: HA GANADO
 			ejecutar_sonido("res/aplausos.wav");
 			
-			panelTiempo.detener();
+			mensajeFinDeJuego("Ganó la partida!!\nHa tardado: "+ panelTiempo.getSegundos() + " segundos", "Fin del juego");
 			
-			JOptionPane.showMessageDialog(null, "Ganó la partida!!\nHa tardado: " + panelTiempo.getSegundos() + " segundos", "Fin del juego", JOptionPane.DEFAULT_OPTION);
-			System.exit(0);
+			
 		}
-	}	
+	}
+	/**
+	 * 
+	 * @param text1
+	 */
+	private void mensajeFinDeJuego(String text1, String text2) {
+		panelTiempo.detener();
+		JOptionPane.showMessageDialog(null, text1, text2, JOptionPane.DEFAULT_OPTION);
+		System.exit(0);
+	}
 	
 	
 	/**
